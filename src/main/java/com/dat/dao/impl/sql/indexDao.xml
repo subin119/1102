@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="indexDao">
+
+	<select id="getNowDateTime" resultType="string">
+		SELECT	/* [indexDao.xml][getNowDateTime] */
+				SYSDATE
+		FROM	DUAL
+	</select>
+
+	<select id="getAllEmployees" resultType="EmployeesVO">
+		SELECT	/* [indexDao.xml][getAllEmployees] */
+				EMPLOYEE_ID employeeId
+				, FIRST_NAME firstName
+				, LAST_NAME lastName
+				, HIRE_DATE hireDate
+				, SALARY salary
+				, DEPARTMENT_ID departmentId
+		FROM	EMPLOYEES		
+	</select>
+	
+	<select id="getAllDepartments" resultType="DepartmentsVO">
+		SELECT	/*[indexDao.xml][getAllDepartments] */
+				DEPARTMENT_ID departmentId
+				, DEPARTMENT_NAME departmentName
+				, MANAGER_ID managerId
+				, LOCATION_ID locationId
+		FROM	DEPARTMENTS
+	</select>
+	
+	<select	id="getEmployeeByEmployeeId" 
+			resultType="EmployeesVO" 
+			parameterType="string">
+		SELECT	/* [indexDao.xml][getEmployeeByEmployeeId] */
+				EMPLOYEE_ID employeeId
+				, FIRST_NAME firstName
+				, LAST_NAME lastName
+				, HIRE_DATE hireDate
+				, SALARY salary
+				, DEPARTMENT_ID departmentId
+		FROM	EMPLOYEES	
+		WHERE	EMPLOYEE_ID = #{employeeId}	
+	</select>
+	
+	<select id="getDepartmentByDepartmentId"
+			resultType="DepartmentsVO"
+			parameterType="string">
+		SELECT	/*[indexDao.xml][getDepartmentByDepartmentId] */
+				DEPARTMENT_ID departmentId
+				, DEPARTMENT_NAME departmentName
+				, MANAGER_ID managerId
+				, LOCATION_ID locationId
+		FROM	DEPARTMENTS	
+		WHERE	DEPARTMENT_ID = #{departmentId}
+	</select>
+	
+	<insert id="addNewEmployee" 
+			parameterType="EmployeesVO">
+		INSERT INTO /* [indexDao.xml][addNewEmployee] */
+					HR.EMPLOYEES (
+   									EMPLOYEE_ID
+   									, LAST_NAME
+   									, EMAIL
+   									, HIRE_DATE
+   									, JOB_ID
+   								 )
+   									 
+		VALUES 					 (	
+									#{employeeId}
+									, #{lastName}
+									, #{email}
+									, SYSDATE
+									, #{jobId}
+							     )
+	</insert>
+	
+	<delete id="deleteEmployee" parameterType="EmployeesVO"> 
+		DELETE	/* [indexDao.xml][deleteEmployee] */
+		FROM	EMPLOYEES
+		WHERE	EMPLOYEE_ID = #{employeeId}
+	</delete>
+	
+	<insert id="addNewDepartment"
+			parameterType="DepartmentsVO">
+		INSERT INTO /* [indexDao.xml][addNewDepartment] */
+					HR.DEPARTMENTS (
+  										DEPARTMENT_ID
+  										, DEPARTMENT_NAME
+  										, MANAGER_ID
+  										, LOCATION_ID
+  									) 
+		VALUES 						( 
+										#{departmentId}
+										, #{departmentName}
+										, #{managerId}
+										, #{locationId}
+									)
+	</insert>
+	
+	<delete id="deleteDepartment"
+			parameterType="DepartmentsVO">
+		DELETE /* [indexDao.xml][deleteDepartment] */
+		FROM	DEPARTMENTS
+		WHERE	DEPARTMENT_ID = #{departmentId}
+	</delete>
+</mapper>						
