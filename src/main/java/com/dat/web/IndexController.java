@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,7 @@ import com.dat.vo.EmployeesVO;
 public class IndexController {
 	
 	private IndexService indexService;
+	private Logger logger = LoggerFactory.getLogger(IndexController.class);
 
 	public void setIndexService(IndexService indexService) {
 		this.indexService = indexService;
@@ -33,7 +36,7 @@ public class IndexController {
 	public ModelAndView viewNowDateTimePage() {
 		
 		String nowDateTime = indexService.getNowDateTime();
-		System.out.println(nowDateTime);
+		logger.debug(nowDateTime);
 		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("now");
@@ -61,6 +64,7 @@ public class IndexController {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("hr/employees");
 		view.addObject("employee", employee);
+		logger.debug(employeeId);
 		return view;
 	}	
 									
