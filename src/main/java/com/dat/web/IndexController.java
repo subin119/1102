@@ -2,7 +2,11 @@ package com.dat.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -61,17 +65,23 @@ public class IndexController {
 	}	
 									
 	@RequestMapping("/hr/addNewEmployee")
-	public String viewAddNewEmployeePage() {
+	public String viewAddNewEmployeePage(HttpSession session) {
+		
 		return "hr/addNewEmployee";
 	}
 	
 	@RequestMapping("hr/doAddEmployeeAction")
-	public ModelAndView doAddEmployeeAction(EmployeesVO employee) {
-		
-		boolean isSuccess = indexService.addNewEmployee(employee);
-		
+	public ModelAndView doAddEmployeeAction(@Valid EmployeesVO employee, Errors errors, HttpSession session) {
 		ModelAndView view = new ModelAndView();
-		view.setViewName("redirect:/hr/employees");
+		
+		if(errors.hasErrors()) {
+			view.setViewName("hr/addNewEmployee");
+		}
+		else {
+			boolean isSuccess = indexService.addNewEmployee(employee);
+			view.setViewName("redirect:/hr/employees");
+		}
+		
 		return view;
 	}
 	
