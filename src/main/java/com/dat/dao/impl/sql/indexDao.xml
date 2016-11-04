@@ -40,7 +40,7 @@
 				, HIRE_DATE hireDate
 				, SALARY salary
 				, DEPARTMENT_ID departmentId
-		FROM	EMPLOYEES	
+		FROM	EMPLOYEES
 		WHERE	EMPLOYEE_ID = #{employeeId}	
 	</select>
 	

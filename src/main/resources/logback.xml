@@ -35,11 +35,11 @@
 		</encoder>
 	</appender>
 	
-	<logger	name="org.springframework" level="DEBUG" />
+	<logger	name="org.springframework" level="info" />
 	
 	<logger	name="interceptor" level="DEBUG" />
 	
-	<root level="DEBUG">
+	<root level="info">
 		<appender-ref ref="file" />
 		<appender-ref ref="console" />
 	</root>
